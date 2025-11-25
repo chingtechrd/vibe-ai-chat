@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude AI Chat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 標題區 -->
+        <header class="header">
+            <h1>Claude AI Chat</h1>
+            <p class="subtitle">即時串流對話介面</p>
+        </header>
+
+        <!-- 聊天訊息區 -->
+        <div class="chat-container" id="chatContainer">
+            <div class="welcome-message">
+                <h2>歡迎使用 Claude AI Chat</h2>
+                <p>開始提問吧！</p>
+            </div>
+        </div>
+
+        <!-- 輸入區 -->
+        <div class="input-container">
+            <form id="chatForm">
+                <div class="input-wrapper">
+                    <textarea
+                        id="messageInput"
+                        placeholder="輸入你的問題..."
+                        rows="1"
+                        autofocus
+                    ></textarea>
+                    <button type="submit" id="sendButton">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M2 12L22 2L15 22L11 13L2 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- 狀態列 -->
+        <div class="status-bar">
+            <span id="statusText">準備就緒</span>
+            <button id="newChatButton" class="secondary-button">新對話</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
