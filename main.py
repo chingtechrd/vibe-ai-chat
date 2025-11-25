@@ -1,13 +1,18 @@
 """FastAPI 主程式，處理前端請求並整合 Claude CLI"""
 
+from pathlib import Path
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse
+from fastapi.responses import StreamingResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import Optional
 import uuid
 
 from claude_client import ClaudeClient
+
+# 前端目錄路徑
+FRONTEND_DIR = Path(__file__).parent.parent / "frontend"
 
 
 # 建立 FastAPI 應用程式
@@ -47,12 +52,8 @@ class ChatResponse(BaseModel):
 
 @app.get("/")
 async def root():
-    """API 根路徑"""
-    return {
-        "message": "Claude AI Chat API",
-        "version": "1.0.0",
-        "docs": "/docs"
-    }
+    """提供前端首頁"""
+    return FileResponse(FRONTEND_DIR / "index.html")
 
 
 @app.post("/api/chat", response_model=ChatResponse)
@@ -156,6 +157,10 @@ async def delete_session(session_id: str):
         claude_client.reset_session(session_id)
         return {"message": f"Session {session_id} 已刪除"}
     return {"error": "Session 不存在"}
+
+
+# 掛載靜態檔案（放在所有 API 路由之後）
+app.mount("/", StaticFiles(directory=FRONTEND_DIR), name="static")
 
 
 if __name__ == "__main__":

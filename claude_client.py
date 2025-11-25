@@ -50,6 +50,7 @@ class ClaudeClient:
                 "--print",
                 "--verbose",
                 "--output-format", "stream-json",
+                "--include-partial-messages",
                 "--session-id", session_id,
                 "--dangerously-skip-permissions",
                 user_message
@@ -64,6 +65,7 @@ class ClaudeClient:
                 "--print",
                 "--verbose",
                 "--output-format", "stream-json",
+                "--include-partial-messages",
                 "--resume", session_id,
                 "--dangerously-skip-permissions",
                 user_message
