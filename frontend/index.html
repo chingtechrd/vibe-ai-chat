@@ -3,51 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0F0F14">
     <title>Claude AI Chat</title>
+
+    <!-- highlight.js 主題 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/styles/tokyo-night-dark.min.css">
+
+    <!-- 主樣式 -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <!-- 標題區 -->
         <header class="header">
-            <h1>Claude AI Chat</h1>
-            <p class="subtitle">即時串流對話介面</p>
+            <div class="header-brand">
+                <div class="header-logo">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <h1 class="header-title">Claude AI</h1>
+            </div>
+            <div class="header-actions">
+                <button id="newChatButton" class="btn-link">新對話</button>
+            </div>
         </header>
 
         <!-- 聊天訊息區 -->
-        <div class="chat-container" id="chatContainer">
+        <main class="chat-container" id="chatContainer" role="log" aria-live="polite">
             <div class="welcome-message">
-                <h2>歡迎使用 Claude AI Chat</h2>
-                <p>開始提問吧！</p>
+                <div class="welcome-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                        <line x1="9" y1="9" x2="9.01" y2="9"/>
+                        <line x1="15" y1="9" x2="15.01" y2="9"/>
+                    </svg>
+                </div>
+                <h2>嗨，有什麼我可以幫忙的嗎？</h2>
+                <p>輸入訊息開始對話</p>
             </div>
-        </div>
+        </main>
 
         <!-- 輸入區 -->
-        <div class="input-container">
+        <footer class="input-container">
             <form id="chatForm">
                 <div class="input-wrapper">
                     <textarea
                         id="messageInput"
-                        placeholder="輸入你的問題..."
+                        placeholder="輸入訊息..."
                         rows="1"
                         autofocus
+                        aria-label="訊息輸入"
                     ></textarea>
-                    <button type="submit" id="sendButton">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M2 12L22 2L15 22L11 13L2 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <button type="submit" id="sendButton" aria-label="發送訊息">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="22" y1="2" x2="11" y2="13"/>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
                         </svg>
                     </button>
                 </div>
             </form>
-        </div>
-
-        <!-- 狀態列 -->
-        <div class="status-bar">
-            <span id="statusText">準備就緒</span>
-            <button id="newChatButton" class="secondary-button">新對話</button>
-        </div>
+            <div class="input-footer">
+                <span id="statusText" class="status">準備就緒</span>
+            </div>
+        </footer>
     </div>
 
+    <!-- SVG 圖示定義 -->
+    <svg style="display: none;">
+        <defs>
+            <!-- 複製圖示 -->
+            <symbol id="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </symbol>
+            <!-- 編輯圖示 -->
+            <symbol id="icon-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+            </symbol>
+            <!-- 重新生成圖示 -->
+            <symbol id="icon-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="23 4 23 10 17 10"/>
+                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+            </symbol>
+            <!-- 刪除圖示 -->
+            <symbol id="icon-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="3 6 5 6 21 6"/>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+            </symbol>
+            <!-- 勾選圖示 -->
+            <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"/>
+            </symbol>
+        </defs>
+    </svg>
+
+    <!-- Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+
+    <!-- 應用程式 -->
     <script src="app.js"></script>
 </body>
 </html>

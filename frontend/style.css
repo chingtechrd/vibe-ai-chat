@@ -1,93 +1,220 @@
-/* 全域樣式 */
-* {
+/* ==========================================================================
+   Claude AI Chat - Aurora Theme (冷色調藍紫系)
+   ========================================================================== */
+
+/* ==========================================================================
+   1. CSS 變數
+   ========================================================================== */
+:root {
+    /* 主色調 - 科技感藍紫 */
+    --primary-500: #6366F1;
+    --primary-600: #4F46E5;
+    --primary-400: #818CF8;
+    --primary-300: #A5B4FC;
+
+    /* 背景層次 - 深色系 */
+    --bg-primary: #0F0F14;
+    --bg-secondary: #16161D;
+    --bg-tertiary: #1E1E28;
+    --bg-elevated: #282833;
+
+    /* 文字 */
+    --text-primary: #F4F4F5;
+    --text-secondary: #A1A1AA;
+    --text-muted: #71717A;
+
+    /* 訊息區分 */
+    --user-accent: #6366F1;
+    --assistant-accent: #8B5CF6;
+
+    /* 程式碼區塊 */
+    --code-bg: #0D0D12;
+    --code-border: #2D2D3A;
+
+    /* 語意色彩 */
+    --success: #34D399;
+    --warning: #FBBF24;
+    --error: #F87171;
+
+    /* 間距比例 */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --space-7: 48px;
+
+    /* 動畫 */
+    --duration-fast: 150ms;
+    --duration-normal: 250ms;
+    --duration-slow: 400ms;
+    --easing: cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* 圓角 */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+
+    /* 陰影 */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* ==========================================================================
+   2. Reset 和基礎樣式
+   ========================================================================== */
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-:root {
-    --primary-color: #10a37f;
-    --bg-color: #343541;
-    --secondary-bg: #444654;
-    --text-color: #ececf1;
-    --user-bg: #343541;
-    --assistant-bg: #444654;
-    --border-color: #565869;
-    --input-bg: #40414f;
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
     height: 100vh;
     overflow: hidden;
 }
 
-/* 主容器 */
+/* ==========================================================================
+   3. 版面結構
+   ========================================================================== */
 .container {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    max-width: 900px;
+    max-width: 860px;
     margin: 0 auto;
 }
 
-/* 標題區 */
+/* ==========================================================================
+   4. 標題區
+   ========================================================================== */
 .header {
-    padding: 1.5rem 1rem;
-    text-align: center;
-    background-color: var(--secondary-bg);
-    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-4) var(--space-5);
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--code-border);
 }
 
-.header h1 {
-    font-size: 1.5rem;
-    margin-bottom: 0.3rem;
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
 }
 
-.subtitle {
-    font-size: 0.9rem;
-    color: #b4b4b4;
+.header-logo {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, var(--primary-500), var(--assistant-accent));
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* 聊天容器 */
+.header-logo svg {
+    width: 20px;
+    height: 20px;
+    color: white;
+}
+
+.header-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.header-actions {
+    display: flex;
+    gap: var(--space-2);
+}
+
+/* ==========================================================================
+   5. 對話容器
+   ========================================================================== */
 .chat-container {
     flex: 1;
     overflow-y: auto;
-    padding: 1rem;
+    padding: var(--space-5);
+    background-color: var(--bg-secondary);
     scroll-behavior: smooth;
 }
 
-/* 歡迎訊息 */
+/* 歡迎畫面 */
 .welcome-message {
     text-align: center;
-    margin-top: 4rem;
-    color: #b4b4b4;
+    padding: var(--space-7) var(--space-5);
+}
+
+.welcome-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto var(--space-5);
+    background: linear-gradient(135deg, var(--primary-500), var(--assistant-accent));
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.welcome-icon svg {
+    width: 32px;
+    height: 32px;
+    color: white;
 }
 
 .welcome-message h2 {
-    font-size: 1.8rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: var(--space-3);
+    background: linear-gradient(135deg, var(--primary-400), var(--assistant-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .welcome-message p {
+    color: var(--text-secondary);
     font-size: 1rem;
 }
 
-/* 訊息樣式 */
+/* ==========================================================================
+   6. 訊息元件
+   ========================================================================== */
 .message {
-    margin-bottom: 1.5rem;
-    padding: 1.5rem;
-    border-radius: 8px;
-    line-height: 1.6;
-    animation: fadeIn 0.3s ease-in;
+    position: relative;
+    margin-bottom: var(--space-5);
+    padding: var(--space-5);
+    background-color: var(--bg-tertiary);
+    border-radius: var(--radius-lg);
+    border-left: 3px solid transparent;
+    animation: messageSlideIn var(--duration-slow) var(--easing);
 }
 
-@keyframes fadeIn {
+@keyframes messageSlideIn {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(12px);
     }
     to {
         opacity: 1;
@@ -95,109 +222,169 @@ body {
     }
 }
 
-.message.user {
-    background-color: var(--user-bg);
-    border-left: 3px solid var(--primary-color);
+.message--user {
+    border-left-color: var(--user-accent);
 }
 
-.message.assistant {
-    background-color: var(--assistant-bg);
-    border-left: 3px solid #8e8ea0;
+.message--assistant {
+    border-left-color: var(--assistant-accent);
+    background-color: rgba(139, 92, 246, 0.05);
 }
 
 .message-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+}
+
+.message-role {
+    font-size: 0.875rem;
     font-weight: 600;
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-    color: var(--primary-color);
 }
 
-.message.user .message-header {
-    color: var(--primary-color);
+.message--user .message-role {
+    color: var(--user-accent);
 }
 
-.message.assistant .message-header {
-    color: #8e8ea0;
+.message--assistant .message-role {
+    color: var(--assistant-accent);
+}
+
+.message-time {
+    font-size: 0.75rem;
+    color: var(--text-muted);
 }
 
 .message-content {
-    white-space: pre-wrap;
-    word-wrap: break-word;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-primary);
 }
 
-/* 打字游標效果 */
-.typing-cursor {
-    display: inline-block;
-    width: 8px;
-    height: 1em;
-    background-color: var(--text-color);
-    margin-left: 2px;
-    animation: blink 1s infinite;
+/* ==========================================================================
+   7. 訊息操作按鈕
+   ========================================================================== */
+.message-actions {
+    display: flex;
+    gap: var(--space-1);
+    margin-top: var(--space-3);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--code-border);
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity var(--duration-fast) var(--easing),
+                transform var(--duration-fast) var(--easing);
 }
 
-@keyframes blink {
-    0%, 50% {
-        opacity: 1;
-    }
-    51%, 100% {
-        opacity: 0;
-    }
+.message:hover .message-actions {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-/* 輸入區 */
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-2) var(--space-3);
+    background: transparent;
+    border: 1px solid var(--code-border);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--easing);
+}
+
+.action-btn:hover {
+    background: var(--bg-elevated);
+    color: var(--text-primary);
+    border-color: var(--primary-500);
+}
+
+.action-btn--danger:hover {
+    background: rgba(248, 113, 113, 0.1);
+    color: var(--error);
+    border-color: var(--error);
+}
+
+.action-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
+.action-btn.copied {
+    color: var(--success);
+    border-color: var(--success);
+}
+
+/* ==========================================================================
+   8. 輸入區
+   ========================================================================== */
 .input-container {
-    padding: 1rem;
-    background-color: var(--secondary-bg);
-    border-top: 1px solid var(--border-color);
+    padding: var(--space-4) var(--space-5);
+    background-color: var(--bg-secondary);
+    border-top: 1px solid var(--code-border);
 }
 
 .input-wrapper {
     display: flex;
-    gap: 0.5rem;
+    gap: var(--space-3);
     align-items: flex-end;
-    background-color: var(--input-bg);
-    border-radius: 8px;
-    padding: 0.75rem;
-    border: 1px solid var(--border-color);
+    background-color: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--code-border);
+    transition: border-color var(--duration-fast) var(--easing),
+                box-shadow var(--duration-fast) var(--easing);
 }
 
 .input-wrapper:focus-within {
-    border-color: var(--primary-color);
+    border-color: var(--primary-500);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
 #messageInput {
     flex: 1;
     background: transparent;
     border: none;
-    color: var(--text-color);
+    color: var(--text-primary);
     font-size: 1rem;
+    line-height: 1.5;
     resize: none;
     outline: none;
     max-height: 200px;
+    min-height: 24px;
     font-family: inherit;
 }
 
 #messageInput::placeholder {
-    color: #8e8ea0;
+    color: var(--text-muted);
 }
 
 #sendButton {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.2s;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+    color: white;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
     flex-shrink: 0;
+    transition: transform var(--duration-fast) var(--easing),
+                box-shadow var(--duration-fast) var(--easing);
 }
 
 #sendButton:hover:not(:disabled) {
-    background-color: #0d8c6d;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+#sendButton:active:not(:disabled) {
+    transform: scale(0.98);
 }
 
 #sendButton:disabled {
@@ -205,70 +392,415 @@ body {
     cursor: not-allowed;
 }
 
-/* 狀態列 */
-.status-bar {
+#sendButton svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* 狀態區 */
+.input-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.75rem 1rem;
-    background-color: var(--secondary-bg);
-    border-top: 1px solid var(--border-color);
-    font-size: 0.85rem;
-    color: #b4b4b4;
+    margin-top: var(--space-3);
+    font-size: 0.8rem;
 }
 
-.secondary-button {
-    background-color: transparent;
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
+.status {
+    color: var(--text-muted);
+}
+
+.status.streaming {
+    color: var(--primary-400);
+}
+
+.btn-link {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
     cursor: pointer;
-    font-size: 0.85rem;
-    transition: background-color 0.2s;
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+    transition: color var(--duration-fast), background var(--duration-fast);
 }
 
-.secondary-button:hover {
-    background-color: var(--input-bg);
+.btn-link:hover {
+    color: var(--primary-400);
+    background: rgba(99, 102, 241, 0.1);
 }
 
-/* 滾動條樣式 */
-.chat-container::-webkit-scrollbar {
+/* ==========================================================================
+   9. Markdown 內容樣式
+   ========================================================================== */
+.message-content h1,
+.message-content h2,
+.message-content h3,
+.message-content h4 {
+    margin-top: var(--space-5);
+    margin-bottom: var(--space-3);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.message-content h1 { font-size: 1.5rem; }
+.message-content h2 { font-size: 1.25rem; }
+.message-content h3 { font-size: 1.125rem; }
+.message-content h4 { font-size: 1rem; }
+
+.message-content p {
+    margin-bottom: var(--space-4);
+}
+
+.message-content p:last-child {
+    margin-bottom: 0;
+}
+
+.message-content ul,
+.message-content ol {
+    margin-bottom: var(--space-4);
+    padding-left: var(--space-5);
+}
+
+.message-content li {
+    margin-bottom: var(--space-2);
+}
+
+.message-content blockquote {
+    margin: var(--space-4) 0;
+    padding: var(--space-3) var(--space-4);
+    border-left: 3px solid var(--primary-500);
+    background: rgba(99, 102, 241, 0.08);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    color: var(--text-secondary);
+}
+
+.message-content a {
+    color: var(--primary-400);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--duration-fast);
+}
+
+.message-content a:hover {
+    border-bottom-color: var(--primary-400);
+}
+
+.message-content strong {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.message-content em {
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+.message-content table {
+    width: 100%;
+    margin: var(--space-4) 0;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+.message-content th,
+.message-content td {
+    padding: var(--space-3);
+    border: 1px solid var(--code-border);
+    text-align: left;
+}
+
+.message-content th {
+    background: var(--bg-elevated);
+    font-weight: 600;
+}
+
+.message-content hr {
+    margin: var(--space-5) 0;
+    border: none;
+    border-top: 1px solid var(--code-border);
+}
+
+/* ==========================================================================
+   10. 程式碼區塊樣式
+   ========================================================================== */
+/* 行內程式碼 */
+.message-content code:not(.hljs) {
+    padding: 2px 6px;
+    background: var(--bg-elevated);
+    border-radius: 4px;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.9em;
+    color: var(--primary-300);
+}
+
+/* 程式碼區塊容器 */
+.code-block {
+    position: relative;
+    margin: var(--space-4) 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--code-bg);
+    border: 1px solid var(--code-border);
+}
+
+.code-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-2) var(--space-4);
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid var(--code-border);
+}
+
+.code-language {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+}
+
+.copy-code-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-3);
+    background: transparent;
+    border: 1px solid var(--code-border);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--easing);
+}
+
+.copy-code-btn:hover {
+    background: var(--bg-elevated);
+    color: var(--text-primary);
+    border-color: var(--primary-500);
+}
+
+.copy-code-btn.copied {
+    color: var(--success);
+    border-color: var(--success);
+}
+
+.copy-code-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
+.code-block pre {
+    margin: 0;
+    padding: var(--space-4);
+    overflow-x: auto;
+}
+
+.code-block code {
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   11. 動畫效果
+   ========================================================================== */
+/* 打字游標 */
+.typing-cursor {
+    display: inline-block;
+    color: var(--primary-400);
+    font-weight: 300;
+    margin-left: 2px;
+    animation: cursorBlink 1s ease-in-out infinite;
+}
+
+@keyframes cursorBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* 訊息刪除動畫 */
+@keyframes messageSlideOut {
+    to {
+        opacity: 0;
+        transform: translateX(-20px) scale(0.98);
+    }
+}
+
+.message.deleting {
+    animation: messageSlideOut var(--duration-normal) var(--easing) forwards;
+}
+
+/* 思考中動畫 */
+.thinking-indicator {
+    display: flex;
+    gap: var(--space-2);
+    padding: var(--space-3);
+}
+
+.thinking-dot {
     width: 8px;
+    height: 8px;
+    background: var(--primary-500);
+    border-radius: 50%;
+    animation: thinkingPulse 1.4s ease-in-out infinite;
+}
+
+.thinking-dot:nth-child(1) { animation-delay: 0s; }
+.thinking-dot:nth-child(2) { animation-delay: 0.2s; }
+.thinking-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes thinkingPulse {
+    0%, 100% {
+        opacity: 0.4;
+        transform: scale(0.8);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ==========================================================================
+   12. 編輯模式
+   ========================================================================== */
+.message.editing .message-content {
+    display: none;
+}
+
+.message.editing .message-actions {
+    display: none;
+}
+
+.edit-area {
+    margin-top: var(--space-3);
+}
+
+.edit-textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: var(--space-3);
+    background: var(--bg-primary);
+    border: 1px solid var(--primary-500);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: 1.6;
+    resize: vertical;
+    outline: none;
+}
+
+.edit-actions {
+    display: flex;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+}
+
+.btn {
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--easing);
+}
+
+.btn--primary {
+    background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+    color: white;
+    border: none;
+}
+
+.btn--primary:hover {
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+.btn--secondary {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--code-border);
+}
+
+.btn--secondary:hover {
+    background: var(--bg-elevated);
+    color: var(--text-primary);
+}
+
+/* ==========================================================================
+   13. 滾動條樣式
+   ========================================================================== */
+.chat-container::-webkit-scrollbar {
+    width: 6px;
 }
 
 .chat-container::-webkit-scrollbar-track {
-    background: var(--bg-color);
+    background: var(--bg-secondary);
 }
 
 .chat-container::-webkit-scrollbar-thumb {
-    background: var(--border-color);
-    border-radius: 4px;
+    background: var(--code-border);
+    border-radius: 3px;
 }
 
 .chat-container::-webkit-scrollbar-thumb:hover {
-    background: #6e6e80;
+    background: var(--text-muted);
 }
 
-/* 響應式設計 */
+/* ==========================================================================
+   14. 響應式設計
+   ========================================================================== */
 @media (max-width: 768px) {
     .container {
         max-width: 100%;
     }
 
-    .header h1 {
-        font-size: 1.2rem;
+    .header {
+        padding: var(--space-3) var(--space-4);
+    }
+
+    .header-title {
+        font-size: 1rem;
+    }
+
+    .chat-container {
+        padding: var(--space-4);
     }
 
     .message {
-        padding: 1rem;
+        padding: var(--space-4);
     }
 
     .welcome-message {
-        margin-top: 2rem;
+        padding: var(--space-5) var(--space-4);
     }
 
     .welcome-message h2 {
-        font-size: 1.4rem;
+        font-size: 1.25rem;
+    }
+
+    .input-container {
+        padding: var(--space-3) var(--space-4);
+    }
+
+    .message-actions {
+        flex-wrap: wrap;
+    }
+}
+
+/* 減少動畫偏好 */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .typing-cursor {
+        animation: none;
+        opacity: 1;
     }
 }
